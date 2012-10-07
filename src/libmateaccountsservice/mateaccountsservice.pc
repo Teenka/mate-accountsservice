@@ -1,0 +1,10 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: MateAccounts Service
+Description: Client Library for communicating with mateaccounts service
+Version: 0.6.15
+Libs: -L${libdir} -lmateaccountsservice
+Cflags: -I${includedir}/mateaccountsservice-1.0

@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@
+
+Name: MateAccounts Service
+Description: Client Library for communicating with mateaccounts service
+Version: @VERSION@
+Libs: -L${libdir} -lmateaccountsservice
+Cflags: -I${includedir}/mateaccountsservice-1.0

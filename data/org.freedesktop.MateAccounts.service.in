@@ -1,0 +1,5 @@
+[D-BUS Service]
+Name=org.freedesktop.MateAccounts
+Exec=@libexecdir@/mateaccounts-daemon
+User=root
+SystemdService=mateaccounts-daemon.service

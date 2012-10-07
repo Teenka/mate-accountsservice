@@ -1,0 +1,114 @@
+<refentry id="MateAccounts">
+  <refmeta>
+    <refentrytitle role="top_of_page">org.freedesktop.MateAccounts</refentrytitle>
+  </refmeta>
+  <refnamediv>
+    <refname>org.freedesktop.MateAccounts</refname>
+    <refpurpose>MateAccounts interface</refpurpose>
+  </refnamediv>
+  <refsynopsisdiv role="synopsis">
+    <title role="synopsis.title">Methods</title>
+    <synopsis><link linkend="MateAccounts.ListCachedUsers">ListCachedUsers</link> (out 'ao' users)
+<link linkend="MateAccounts.FindUserById">FindUserById</link>    (in  'x'  id,
+                 out 'o'  user)
+<link linkend="MateAccounts.FindUserByName">FindUserByName</link>  (in  's'  name,
+                 out 'o'  user)
+<link linkend="MateAccounts.CreateUser">CreateUser</link>      (in  's'  name,
+                 in  's'  fullname,
+                 out 'o'  user,
+                 in  'i'  accountType)
+<link linkend="MateAccounts.DeleteUser">DeleteUser</link>      (in  'x'  id,
+                 in  'b'  removeFiles)
+</synopsis>
+  </refsynopsisdiv>
+  <refsect1 role="signal_proto">
+    <title role="signal_proto.title">Signals</title>
+    <synopsis><link linkend="MateAccounts::UserAdded">UserAdded</link>   ('o' user)
+<link linkend="MateAccounts::UserDeleted">UserDeleted</link> ('o' user)
+</synopsis>
+  </refsect1>
+  <refsect1 role="impl_interfaces">
+    <title role="impl_interfaces.title">Implemented Interfaces</title>
+    <para>
+    Objects implementing org.freedesktop.MateAccounts also implements
+    org.freedesktop.DBus.Introspectable,
+    org.freedesktop.DBus.Properties
+    </para>
+  </refsect1>
+  <refsect1 role="properties">
+    <title role="properties.title">Properties</title>
+    <synopsis><link linkend="MateAccounts:DaemonVersion">'DaemonVersion'</link> read      's'
+</synopsis>
+  </refsect1>
+  <refsect1 role="desc">
+    <title role="desc.title">Description</title>
+    <para/>
+  </refsect1>
+  <refsect1 role="details">
+    <title role="details.title">Details</title>
+    <refsect2><title><anchor role="function" id="MateAccounts.ListCachedUsers"/>ListCachedUsers ()</title><indexterm><primary>ListCachedUsers</primary><secondary>MateAccounts</secondary></indexterm><programlisting>ListCachedUsers (out 'ao' users)</programlisting>
+          <para>
+            Lists users which have logged into the system locally before.
+            This is not meant to return an exhaustive list of all users.
+            It is possible for <link linkend="MateAccounts.FindUserByName"><function>FindUserByName()</function></link>
+            to return a user that's not on the list.
+          </para>
+        <variablelist role="params"><varlistentry><term><parameter>users</parameter>:</term><listitem><para>Object paths of cached users</para></listitem></varlistentry></variablelist></refsect2>
+    <refsect2><title><anchor role="function" id="MateAccounts.FindUserById"/>FindUserById ()</title><indexterm><primary>FindUserById</primary><secondary>MateAccounts</secondary></indexterm><programlisting>FindUserById (in  'x' id,
+              out 'o' user)</programlisting>
+          <para>
+            Finds a user by uid.
+          </para>
+        <variablelist role="params"><varlistentry><term><parameter>id</parameter>:</term><listitem><para>The uid to look up</para></listitem></varlistentry><varlistentry><term><parameter>user</parameter>:</term><listitem><para>Object path of user</para></listitem></varlistentry></variablelist><note><title>Errors</title><variablelist role="errors"><varlistentry><term><parameter>org.freedesktop.MateAccounts.Error.Failed</parameter>:</term><listitem><simpara>if no user with the given uid exists</simpara></listitem></varlistentry></variablelist></note></refsect2>
+    <refsect2><title><anchor role="function" id="MateAccounts.FindUserByName"/>FindUserByName ()</title><indexterm><primary>FindUserByName</primary><secondary>MateAccounts</secondary></indexterm><programlisting>FindUserByName (in  's' name,
+                out 'o' user)</programlisting>
+          <para>
+            Finds a user by its username.
+          </para>
+        <variablelist role="params"><varlistentry><term><parameter>name</parameter>:</term><listitem><para>The username to look up</para></listitem></varlistentry><varlistentry><term><parameter>user</parameter>:</term><listitem><para>Object path of user</para></listitem></varlistentry></variablelist><note><title>Errors</title><variablelist role="errors"><varlistentry><term><parameter>org.freedesktop.MateAccounts.Error.Failed</parameter>:</term><listitem><simpara>if no user with the given username exists</simpara></listitem></varlistentry></variablelist></note></refsect2>
+    <refsect2><title><anchor role="function" id="MateAccounts.CreateUser"/>CreateUser ()</title><indexterm><primary>CreateUser</primary><secondary>MateAccounts</secondary></indexterm><programlisting>CreateUser (in  's' name,
+            in  's' fullname,
+            out 'o' user,
+            in  'i' accountType)</programlisting>
+          <para>
+            Creates a new user account.
+          </para>
+          <para>
+          The accountType argument can take the following values:
+          </para>
+            <itemizedlist><listitem><para><emphasis role="bold">0: </emphasis>Standard user</para></listitem><listitem><para><emphasis role="bold">1: </emphasis>Administrator</para></listitem></itemizedlist>
+        <variablelist role="params"><varlistentry><term><parameter>name</parameter>:</term><listitem><para>The username for the new user</para></listitem></varlistentry><varlistentry><term><parameter>fullname</parameter>:</term><listitem><para>The real name for the new user</para></listitem></varlistentry><varlistentry><term><parameter>user</parameter>:</term><listitem><para>Object path of the new user</para></listitem></varlistentry><varlistentry><term><parameter>accountType</parameter>:</term><listitem><para>The account type, encoded as an integer</para></listitem></varlistentry></variablelist><note><title>Errors</title><variablelist role="errors"><varlistentry><term><parameter>org.freedesktop.MateAccounts.Error.PermissionDenied</parameter>:</term><listitem><simpara>if the caller lacks the appropriate PolicyKit authorization</simpara></listitem></varlistentry><varlistentry><term><parameter>org.freedesktop.MateAccounts.Error.Failed</parameter>:</term><listitem><simpara>if the operation failed</simpara></listitem></varlistentry></variablelist></note><note><title>Permissions</title><para role="permission">
+          The caller needs the org.freedesktop.mateaccounts.user-administration PolicyKit authorization.
+        </para></note></refsect2>
+    <refsect2><title><anchor role="function" id="MateAccounts.DeleteUser"/>DeleteUser ()</title><indexterm><primary>DeleteUser</primary><secondary>MateAccounts</secondary></indexterm><programlisting>DeleteUser (in  'x' id,
+            in  'b' removeFiles)</programlisting>
+          <para>
+            Deletes a user account.
+          </para>
+        <variablelist role="params"><varlistentry><term><parameter>id</parameter>:</term><listitem><para>The uid to delete</para></listitem></varlistentry><varlistentry><term><parameter>removeFiles</parameter>:</term><listitem><para>Whether to remove the users files</para></listitem></varlistentry></variablelist><note><title>Errors</title><variablelist role="errors"><varlistentry><term><parameter>org.freedesktop.MateAccounts.Error.PermissionDenied</parameter>:</term><listitem><simpara>if the caller lacks the appropriate PolicyKit authorization</simpara></listitem></varlistentry><varlistentry><term><parameter>org.freedesktop.MateAccounts.Error.Failed</parameter>:</term><listitem><simpara>if the operation failed</simpara></listitem></varlistentry></variablelist></note><note><title>Permissions</title><para role="permission">
+          The caller needs the org.freedesktop.mateaccounts.user-administration PolicyKit authorization.
+        </para></note></refsect2>
+  </refsect1>
+  <refsect1 role="signals">
+    <title role="signals.title">Signal Details</title>
+    <refsect2><title><anchor role="function" id="MateAccounts::UserAdded"/>The UserAdded signal</title><indexterm><primary>UserAdded</primary><secondary>MateAccounts</secondary></indexterm><programlisting>UserAdded ('o' user)</programlisting>
+          <para>
+            Emitted when a user is added.
+          </para>
+        <variablelist role="params"><varlistentry><term><parameter>user</parameter>:</term><listitem><simpara>Object path of the user that was added.</simpara></listitem></varlistentry></variablelist></refsect2>
+    <refsect2><title><anchor role="function" id="MateAccounts::UserDeleted"/>The UserDeleted signal</title><indexterm><primary>UserDeleted</primary><secondary>MateAccounts</secondary></indexterm><programlisting>UserDeleted ('o' user)</programlisting>
+          <para>
+            Emitted when a user is deleted.
+          </para>
+        <variablelist role="params"><varlistentry><term><parameter>user</parameter>:</term><listitem><simpara>Object path of the user that was deleted.</simpara></listitem></varlistentry></variablelist></refsect2>
+  </refsect1>
+  <refsect1 role="property_details">
+    <title role="property_details.title">Property Details</title>
+    <refsect2><title><anchor role="function" id="MateAccounts:DaemonVersion"/>The "DaemonVersion" property</title><indexterm><primary>DaemonVersion</primary><secondary>MateAccounts</secondary></indexterm><programlisting>'DaemonVersion'  read      's'
+</programlisting>
+         <para>
+           The version of the running daemon.
+         </para>
+       </refsect2>
+  </refsect1>
+</refentry>
